@@ -31,17 +31,21 @@ public class TrelloClient {
      *
      * @return TrelloBoardDto
      */
-    public Optional<List<TrelloBoardDto>> getTrelloBoards() {
+    public List<TrelloBoardDto> getTrelloBoards() throws TrelloBoardsNotFoundException {
 
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(buildUrl(), TrelloBoardDto[].class);
 
-        return Optional.ofNullable(Arrays.asList(boardsResponse));
+        return Optional.ofNullable(boardsResponse)
+                .map(Arrays::asList)
+                .orElseThrow(TrelloBoardsNotFoundException::new);
     }
 
     private URI buildUrl() {
         return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUser + "/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
-                .queryParam("fields", "name,id").build().encode().toUri();
+                .queryParam("fields", "name,id")
+                .queryParam("lists", "all")
+                .build().encode().toUri();
     }
 }

@@ -1,4 +1,4 @@
-package com.crud.tasks.controller;
+package com.crud.tasks.trello.client;
 
 public class TrelloBoardsNotFoundException extends Exception {
 }
