@@ -1,4 +1,4 @@
 package com.crud.tasks.trello.client;
 
-public class TrelloBoardsNotFoundException extends Exception {
+public class TrelloBoardsNotFoundException extends RuntimeException {
 }
