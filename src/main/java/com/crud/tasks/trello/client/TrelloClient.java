@@ -1,23 +1,21 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.trello.card.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.trello.card.CreatedTrelloCard;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import static java.util.Optional.ofNullable;
+import java.util.Optional;
 
 @Component
 public class TrelloClient {
@@ -33,13 +31,11 @@ public class TrelloClient {
      * @return TrelloBoardDto
      */
     public List<TrelloBoardDto> getTrelloBoards() {
-        try {
-            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(buildUrl(), TrelloBoardDto[].class);
-            return Arrays.asList(ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
-        } catch (RestClientException e) {
-            LOGGER.error(e.getMessage(), e);
-            return new ArrayList<>();
-        }
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(buildUrl(), TrelloBoardDto[].class);
+
+        return Optional.ofNullable(boardsResponse)
+                .map(Arrays::asList)
+                .orElseGet(Collections::emptyList);
     }
 
     private URI buildUrl() {
