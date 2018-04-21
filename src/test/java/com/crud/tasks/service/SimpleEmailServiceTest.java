@@ -19,15 +19,38 @@ public class SimpleEmailServiceTest {
     @Mock
     private JavaMailSender javaMailSender;
 
+    private SimpleMailMessage createMailMessage(final Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        if (!mail.getToCc().equals("")) {
+            mailMessage.setCc(mail.getToCc());
+        }
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
+
+        return mailMessage;
+    }
+
     @Test
     public void shouldSendEmail() {
         //given
-        Mail mail = new Mail("test@test.com", "Test", "Test Message");
+        Mail mail = new Mail("test@test.com", "testCc@test.com", "Test", "Test Message");
 
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
+        SimpleMailMessage mailMessage = createMailMessage(mail);
+
+        //when
+        simpleEmailService.send(mail);
+
+        //then
+        verify(javaMailSender, times(1)).send(mailMessage);
+    }
+
+    @Test
+    public void shouldSendEmailWithoutCc() {
+        //given
+        Mail mail = new Mail("test@test.com", "", "Test", "Test Message");
+
+        SimpleMailMessage mailMessage = createMailMessage(mail);
 
         //when
         simpleEmailService.send(mail);
