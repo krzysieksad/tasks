@@ -56,8 +56,12 @@ dependencies {
 
     //Swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwaggerVersion
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwaggerVersion
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxSwaggerVersion
 
-    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.1')
-    //compile('com.fasterxml.jackson.core:jackson-databind:2.9.4')
+    //Jackson
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: jacksonVersion
 }
