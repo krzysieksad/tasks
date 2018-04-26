@@ -26,10 +26,6 @@ public class EmailScheduler {
 
     private String tasksCount() {
         long size = taskRepository.count();
-        if (size == 1) {
-            return size + " task";
-        } else {
-            return size + " tasks";
-        }
+        return (size == 1) ? size + " task" : size + " tasks";
     }
 }
