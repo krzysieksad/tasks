@@ -46,6 +46,13 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: springBootStarerMailVersion
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootStarerVersion
 
+    //Spring Actuator
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootActuatorVersion
+
+    //Spring hateoas
+    compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.24.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '1.5.10.RELEASE'
+
     //Lombok
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
