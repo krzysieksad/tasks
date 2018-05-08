@@ -4,7 +4,7 @@ import com.crud.tasks.domain.TrelloBoard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloList;
 import com.crud.tasks.domain.TrelloListDto;
-import com.crud.tasks.domain.TrelloMapper;
+import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValidator;
 import org.junit.Test;
