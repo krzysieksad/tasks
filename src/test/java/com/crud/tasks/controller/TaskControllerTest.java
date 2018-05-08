@@ -17,13 +17,17 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -91,5 +95,38 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.id", is(5)))
                 .andExpect(jsonPath("$.title", is("task title")))
                 .andExpect(jsonPath("$.content", is("task content")));
+    }
+
+    @Test
+    public void shouldDeleteTask() throws Exception {
+        //given
+        doNothing().when(service).deleteTask(4L);
+
+        //when
+        mockMvc.perform(delete("/v1/task/deleteTask?taskId=4").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //then
+        verify(service, times(1)).deleteTask(4L);
+    }
+
+    @Test
+    public void shouldCreateTask() throws Exception {
+        //given
+        Task task = new Task(7L, "task title", "task content");
+        TaskDto taskDto = new TaskDto(7L, "task title", "task content");
+        when(service.saveTask(ArgumentMatchers.any(Task.class))).thenReturn(task);
+        when(taskMapper.mapToTask(ArgumentMatchers.any(TaskDto.class))).thenReturn(task);
+
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(taskDto);
+
+        //when
+        mockMvc.perform(post("/v1/task/createTask/").contentType(MediaType.APPLICATION_JSON).characterEncoding("UTF-8").content(jsonContent))
+                .andExpect(status().isOk());
+
+        //then
+        verify(service, times(1)).saveTask(task);
+        verify(taskMapper, times(1)).mapToTask(ArgumentMatchers.any(TaskDto.class));
     }
 }
