@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.10.RELEASE'
+        springBootVersion = '1.5.12.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -25,33 +25,14 @@ repositories {
 }
 
 dependencies {
-    //Spring
-    compile group: 'org.springframework', name: 'spring-aop', version: springVersion
-    compile group: 'org.springframework', name: 'spring-aspects', version: springVersion
-    compile group: 'org.springframework', name: 'spring-beans', version: springVersion
-    compile group: 'org.springframework', name: 'spring-context', version: springVersion
-    compile group: 'org.springframework', name: 'spring-core', version: springVersion
-    compile group: 'org.springframework', name: 'spring-expression', version: springVersion
-    compile group: 'org.springframework', name: 'spring-jcl', version: springVersion
-    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
-    compile group: 'org.springframework', name: 'spring-orm', version: springVersion
-    compile group: 'org.springframework', name: 'spring-test', version: springVersion
-    compile group: 'org.springframework', name: 'spring-tx', version: springVersion
-    compile group: 'org.springframework', name: 'spring-web', version: springVersion
-    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
-
     //Spring boot
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootStarerVersion
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootStarerVersion
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: springBootStarerMailVersion
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootStarerVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
     //Spring Actuator
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootActuatorVersion
-
-    //Spring hateoas
-    compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '0.24.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: '1.5.10.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 
     //Lombok
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
@@ -65,13 +46,6 @@ dependencies {
     //Swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwaggerVersion
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: springfoxSwaggerVersion
-
-    //Jackson
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: jacksonVersion
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
-    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: jacksonVersion
 
     //Google gson
     compile group: 'com.google.code.gson', name: 'gson', version: gsonVersion
